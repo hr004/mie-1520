@@ -20,7 +20,6 @@ def main():
 
     train(train_dataloader, encoder, decoder, 10, print_every=5, plot_every=5)
 
-    # sampler = GreedySampling()
     sampler = TemperatureSampling(0.5)
 
     encoder.eval()

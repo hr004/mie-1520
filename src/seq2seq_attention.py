@@ -34,12 +34,11 @@ def main(attention_mechanism, sampling_type):
         "temperature": TemperatureSampling,
     }
 
-    sampler = samplers[sampling_type]()
     encoder = EncoderRNN(input_lang.n_words, hidden_size).to(device)
     decoder = decoders[attention_mechanism](hidden_size, output_lang.n_words).to(device)
     train(train_dataloader, encoder, decoder, 10, print_every=5, plot_every=5)
 
-    sampler = GreedySampling()
+    sampler = samplers[sampling_type]()
     encoder.eval()
     decoder.eval()
     bleu_score = compute_bleu_score(
