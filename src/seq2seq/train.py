@@ -2,7 +2,7 @@ import time
 import math
 import torch.nn as nn
 import torch.optim as optim
-from src.utils import showPlot, timeSince
+from src.seq2seq.utils import showPlot, timeSince
 
 
 def train_epoch(

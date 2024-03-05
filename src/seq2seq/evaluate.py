@@ -1,6 +1,6 @@
 import torch
 import random
-from src.data import input_lang, output_lang, pairs, EOS_token, tensorFromSentence
+from src.seq2seq.data import input_lang, output_lang, pairs, EOS_token, tensorFromSentence
 from sacrebleu.metrics import BLEU
 
 

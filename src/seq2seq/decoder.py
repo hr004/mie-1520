@@ -1,8 +1,8 @@
 import torch.nn as nn
 import torch.nn.functional as F
 import torch
-from src.data import SOS_token, MAX_LENGTH, device
-from src.attention import (
+from src.seq2seq.data import SOS_token, MAX_LENGTH, device
+from src.seq2seq.attention import (
     BahdanauAttention,
     LocalLuongAttention,
     SparseBahdanauAttention,

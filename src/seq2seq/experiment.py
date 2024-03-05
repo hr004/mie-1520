@@ -1,10 +1,10 @@
-from src.encoder import EncoderRNN
-from src.decoder import DecoderRNN
+from src.seq2seq.encoder import EncoderRNN
+from src.seq2seq.decoder import DecoderRNN
 
-from src.train import train
-from src.data import get_dataloader, device
-from src.evaluate import compute_bleu_score
-from src.sampler import GreedySampling, TemperatureSampling
+from src.seq2seq.train import train
+from src.seq2seq.data import get_dataloader, device
+from src.seq2seq.evaluate import compute_bleu_score
+from src.seq2seq.sampler import GreedySampling, TemperatureSampling
 
 hidden_size = 128
 batch_size = 32
