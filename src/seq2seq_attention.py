@@ -1,5 +1,5 @@
 from src.encoder import EncoderRNN
-from src.decoder import AttnDecoderRNN, LuongAttnDecoderRNN
+from src.decoder import BahdanauAttnDecoderRNN, LuongAttnDecoderRNN
 import click
 from src.train import train
 from src.data import get_dataloader, device
@@ -25,7 +25,7 @@ def main(attention_mechanism, sampling_type):
     )
 
     decoders = {
-        "bahdanau": AttnDecoderRNN,
+        "bahdanau": BahdanauAttnDecoderRNN,
         "luong": LuongAttnDecoderRNN,
     }
 

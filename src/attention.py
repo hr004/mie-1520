@@ -69,20 +69,8 @@ class LocalLuongAttention(nn.Module):
         alignment_scores = F.softmax(attention_scores, dim=-1)
 
         # compute context vector
-        # TODO: rename encoder_outputs to keys and
-        # alignment_scores to weights
         # alignment_scores shape (batch_size, 1, seq_len)
         alignment_scores = alignment_scores.unsqueeze(1)
         context = torch.bmm(alignment_scores, encoder_outputs)
 
         return context, alignment_scores
-
-
-if __name__ == "__main__":
-    hidden_size = 256
-
-    decoder_hidden = torch.randn(32, hidden_size)
-    encoder_outputs = torch.randn(32, 10, hidden_size)
-
-    local_luong_attention = LocalLuongAttention(hidden_size)
-    attn = local_luong_attention(decoder_hidden, encoder_outputs)

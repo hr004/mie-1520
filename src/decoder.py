@@ -56,9 +56,9 @@ class DecoderRNN(nn.Module):
         return output, hidden
 
 
-class AttnDecoderRNN(nn.Module):
+class BahdanauAttnDecoderRNN(nn.Module):
     def __init__(self, hidden_size, output_size, attention_type="dense", dropout_p=0.1):
-        super(AttnDecoderRNN, self).__init__()
+        super(BahdanauAttnDecoderRNN, self).__init__()
         self.embedding = nn.Embedding(output_size, hidden_size)
         self.gru = nn.GRU(2 * hidden_size, hidden_size, batch_first=True)
         self.out = nn.Linear(hidden_size, output_size)
