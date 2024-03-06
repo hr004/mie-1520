@@ -80,5 +80,4 @@ def train(
             plot_loss_avg = plot_loss_total / plot_every
             plot_losses.append(plot_loss_avg)
             plot_loss_total = 0
-    print("Printing loss vlaues")
-    showPlot(plot_losses)
+    # showPlot(plot_losses)

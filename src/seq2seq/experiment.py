@@ -18,9 +18,9 @@ def main():
     encoder = EncoderRNN(input_lang.n_words, hidden_size).to(device)
     decoder = DecoderRNN(hidden_size, output_lang.n_words).to(device)
 
-    train(train_dataloader, encoder, decoder, 10, print_every=5, plot_every=5)
+    train(train_dataloader, encoder, decoder, 80, print_every=5, plot_every=5)
 
-    sampler = TemperatureSampling(0.5)
+    sampler = GreedySampling()
 
     encoder.eval()
     decoder.eval()

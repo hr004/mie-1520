@@ -16,7 +16,8 @@ from src.seq2seq.sampler import GreedySampling, TemperatureSampling
 @click.option(
     "--sampling_type", default="greedy", type=click.Choice(["greedy", "temperature"])
 )
-def main(attention_mechanism, sampling_type):
+@click.option("--temperature", default=0.5, type=float)
+def main(attention_mechanism, sampling_type, temperature):
     hidden_size = 128
     batch_size = 32
 
@@ -30,15 +31,15 @@ def main(attention_mechanism, sampling_type):
     }
 
     samplers = {
-        "greedy": GreedySampling,
-        "temperature": TemperatureSampling,
+        "greedy": GreedySampling(),
+        "temperature": TemperatureSampling(temperature=temperature),
     }
 
     encoder = EncoderRNN(input_lang.n_words, hidden_size).to(device)
     decoder = decoders[attention_mechanism](hidden_size, output_lang.n_words).to(device)
-    train(train_dataloader, encoder, decoder, 10, print_every=5, plot_every=5)
+    train(train_dataloader, encoder, decoder, 80, print_every=5, plot_every=5)
 
-    sampler = samplers[sampling_type]()
+    sampler = samplers[sampling_type]
     encoder.eval()
     decoder.eval()
     bleu_score = compute_bleu_score(
