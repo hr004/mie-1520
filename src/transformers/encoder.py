@@ -6,29 +6,6 @@ from src.transformers.embeddings import Embeddings
 import math
 
 
-class FixedPositionalEmbedding(nn.Module):
-    """Fixed positional embedding module that adds positional encoding to the input embeddings.
-    """
-    def __init__(self, d_model, max_len=512):
-        super(FixedPositionalEmbedding, self).__init__()
-
-        position = torch.arange(0, max_len).unsqueeze(1)
-        div_term = torch.exp(
-            torch.arange(0, d_model, 2) * -(torch.log(torch.tensor(10000.0)) / d_model)
-        )
-        pos_enc = torch.zeros(max_len, 1, d_model)
-        pos_enc[:, 0, 0::2] = torch.sin(position * div_term)
-        pos_enc[:, 0, 1::2] = torch.cos(position * div_term)
-
-        self.dropout = nn.Dropout(p=0.1)
-        self.register_buffer("pos_enc", pos_enc)
-
-    def forward(self, x):
-        # x is the embedding layer output
-        x = x + self.pos_enc[: x.size(0), :]
-        return self.dropout(x)
-
-
 class EncoderLayer(nn.Module):
     def __init__(self, embedding_dim, heads, mask, ff_hidden_mult=4, dropout=0.0):
         super().__init__()
@@ -55,7 +32,7 @@ class EncoderLayer(nn.Module):
 
 class Encoder(nn.Module):
     """
-    Transformer for classifying sequences
+    Transformer encoder for classifying sequences
     """
 
     def __init__(
@@ -104,7 +81,6 @@ class Encoder(nn.Module):
 
 
 if __name__ == "__main__":
-    x = torch.randint(0, 512, (32, 512))
-    attn = Embeddings(embed_dim=128, seq_len=512)
-    attn(x)
-    print()
+    model = Encoder(emb=128, heads=8, depth=6, seq_length=128, vocab_size=20000, num_classes=2)
+    x = torch.randint(0, 20000, (32, 128))
+    print(model(x).shape)

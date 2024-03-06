@@ -3,7 +3,6 @@ import torch
 import torchtext
 from torchtext import data, datasets
 from torchtext import vocab
-from tokenizer import spacy_tokenizer
 from argparse import ArgumentParser
 
 

@@ -40,6 +40,16 @@ class FixedPositionalEmbedding(nn.Module):
 
 
 class Embeddings(nn.Module):
+    """
+    This class represents the embeddings layer in a transformer model.
+
+    Args:
+        embed_dim (int): The dimensionality of the token embeddings.
+        vocab_size (int): The size of the vocabulary.
+        max_seq_len (int): The maximum sequence length.
+        p (float, optional): The dropout probability. Defaults to None.
+    """
+
     def __init__(self, embed_dim, vocab_size, max_seq_len, p=None):
         super().__init__()
         self.token_embeddings = nn.Embedding(
@@ -57,6 +67,15 @@ class Embeddings(nn.Module):
         self.layer_norm = nn.LayerNorm(embed_dim, eps=1e-10)
 
     def forward(self, x):
+        """
+        Forward pass of the embeddings layer.
+        
+        Args:
+            x (torch.Tensor): The input tensor of shape (batch_size, max_seq_len).
+        
+        Returns:
+            torch.Tensor: The output tensor of shape (batch_size, max_seq_len, embed_dim).
+        """
         # batch x max_seq_len x emb_dim
         token_embeddings = self.token_embeddings(x)
         # batch x max_seq_len x emb_dim

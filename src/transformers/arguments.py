@@ -24,7 +24,7 @@ learn = parser.add_argument_group("Learning Options")
 learn.add_argument(
     "--batch_size", type=int, default=64, help="use pretrained vocabulary"
 )
-learn.add_argument("--epochs", type=int, default=80, help="number of training epochs")
+learn.add_argument("--epochs", type=int, default=10, help="number of training epochs")
 learn.add_argument("--optimizer", default="AdamW", help="Optimizer name")
 learn.add_argument("--lr", default=0.001, help="Learning rate")
 learn.add_argument("--lr_warmup", default=10000)
