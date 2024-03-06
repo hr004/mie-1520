@@ -12,15 +12,10 @@ class FixedPositionalEmbedding(nn.Module):
     def __init__(self, d_model, max_len=512):
         super(FixedPositionalEmbedding, self).__init__()
 
-        # Create a long tensor containing positions from 0 to max_len
         position = torch.arange(0, max_len).unsqueeze(1)
-
-        # Use the div_term to scale the position encoding
         div_term = torch.exp(
             torch.arange(0, d_model, 2) * -(torch.log(torch.tensor(10000.0)) / d_model)
         )
-
-        # Initialize the position encoding
         pos_enc = torch.zeros(max_len, 1, d_model)
         pos_enc[:, 0, 0::2] = torch.sin(position * div_term)
         pos_enc[:, 0, 1::2] = torch.cos(position * div_term)

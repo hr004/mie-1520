@@ -3,6 +3,19 @@ from src.transformers.utils import compute_metrics
 
 
 def evaluate(args, model, loss_fn, data_iterator):
+    """
+    Evaluate the performance of a model on a given dataset.
+
+    Args:
+        args (argparse.Namespace): The command-line arguments.
+        model: The transformer model to evaluate.
+        loss_fn: The loss function used for evaluation.
+        data_iterator: The iterator over the evaluation dataset.
+
+    Returns:
+        Tuple[float, float]: The average loss and accuracy over the evaluation dataset.
+    """
+
     model.eval()
     val_acc = 0
     losses = 0.0

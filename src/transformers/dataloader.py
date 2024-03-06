@@ -8,6 +8,17 @@ from argparse import ArgumentParser
 
 
 def get_imdb_data(args):
+    """
+    Downloads the IMDB dataset and prepares it for training and validation.
+
+    Args:
+        args: An object containing the necessary arguments for data preparation.
+
+    Returns:
+        train_it: The training data iterator.
+        valid_it: The validation data iterator.
+    """
+
     # get txt and label field
     txt_field, label_field = define_fields(args)
     datasets.IMDB.download("./")
@@ -28,7 +39,14 @@ def get_imdb_data(args):
 
 def get_data(args):
     """
-    get data vectors from a given path to datafile
+    Get the train and validation data iterators.
+
+    Args:
+        args: The arguments containing the configuration for data loading.
+
+    Returns:
+        train_it: The iterator for the training data.
+        valid_it: The iterator for the validation data.
     """
     txt_field, label_field = define_fields(args)
     # train and validation fields
@@ -51,18 +69,24 @@ def get_data(args):
 
 
 def define_fields(args):
+    """
+    Define and return the text and label fields for data processing.
+
+    Args:
+        args: A namespace object containing the arguments.
+
+    Returns:
+        txt_field: A Field object for text-related data processing.
+        label_field: A Field object for label-related data processing.
+    """
+
     # text related Field
     txt_field = data.Field(
         sequential=True,
         use_vocab=True,  # set true to create build vocabulary
-        init_token=None,  # default
-        eos_token=None,  # default
         fix_length=args.max_seq_len,  # default
-        dtype=torch.long,  # default
-        preprocessing=None,  # default
-        postprocessing=None,  # default
-        # tokenize=spacy_tokenizer,
-        include_lengths=False,  # batch.text is a tuple if true
+        dtype=torch.long,
+        include_lengths=False,
         batch_first=True,
         stop_words=None,
         is_target=False,
@@ -72,7 +96,7 @@ def define_fields(args):
     # label related Field
     label_field = data.Field(
         sequential=False,
-        use_vocab=True,  # set this to false when labels are integers
+        use_vocab=True,
         pad_token=None,
         unk_token=None,
     )
