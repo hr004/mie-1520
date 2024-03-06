@@ -182,8 +182,6 @@ from torch.utils.data import random_split
 
 
 def get_dataloader(batch_size):
-    input_lang, output_lang, pairs = prepareData("eng", "fra", True)
-
     # split the data into train and test
     train_size = int(0.8 * len(pairs))
     train_pairs = pairs[:train_size]
